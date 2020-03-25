@@ -3,14 +3,17 @@
 #include <stdlib.h>
 %}
 
+ALFANUM [A-Za-z0-9]+
+EMAIL {ALFANUM}([._-]*{ALFANUM})*[@]+{ALFANUM}([._-]*{ALFANUM})* 
+	
 %%
 
-[A-Za-z0-9]+([._-]*[A-Za-z0-9]+)*[@]+[A-Za-z0-9]+([._-]*[A-Za-z0-9]+)* { printf("%s\n", yytext); }
+{EMAIL} { printf("%s\n", yytext); }
 
 [^ \t\r\nA-Za-z0-9][^ \t\r\n]* ;
 [^ \t\r\n]*[^ \t\r\nA-Za-z0-9\.] ;
 [[:space:]]+ ;
-[[:^space:]]+ ;
+[[:^space:]] ;
 %%
 
 int main() {
